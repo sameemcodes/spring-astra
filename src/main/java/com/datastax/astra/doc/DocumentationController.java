@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/")
 public class DocumentationController {
-    
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html")
-    public String redirectToDoc() {
-        return new StringBuilder(""
-                + "<html>"
-                + " <head>"
-                + "  <meta http-equiv=\"refresh\" content=\"0; url=swagger-ui.html\" />"
-                + " </head>"
-                + " <body/></html>").toString();
-    }
+
+  @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html")
+  public String redirectToDoc() {
+    return ""
+        + "<html>"
+        + " <head>"
+        + "  <meta http-equiv=\"refresh\" content=\"0; url=swagger-ui.html\" />"
+        + " </head>"
+        + " <body/></html>";
+  }
 
 }

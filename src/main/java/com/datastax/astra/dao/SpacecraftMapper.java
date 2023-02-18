@@ -12,18 +12,16 @@ import com.datastax.oss.driver.api.mapper.annotations.Mapper;
 @Mapper
 public interface SpacecraftMapper {
 
-    /**
-     * Initialization of Dao {@link RatingDseDao}
-     *
-     * @param keyspace
-     *      working keyspace name
-     * @return
-     *      instanciation with the mappers
-     */
-    @DaoFactory
-    SpacecraftJourneyDao spacecraftJourneyDao(@DaoKeyspace CqlIdentifier keyspace);
-    
-    @DaoFactory
-    SpacecraftInstrumentsDao spacecraftInstrumentsDao(@DaoKeyspace CqlIdentifier keyspace);
-    
+  /**
+   * Initialization of Dao {@link RatingDseDao}
+   *
+   * @param keyspace working keyspace name
+   * @return instanciation with the mappers
+   */
+  @DaoFactory
+  SpacecraftJourneyDao spacecraftJourneyDao(@DaoKeyspace CqlIdentifier keyspace);
+
+  @DaoFactory
+  SpacecraftInstrumentsDao spacecraftInstrumentsDao(@DaoKeyspace CqlIdentifier keyspace);
+
 }

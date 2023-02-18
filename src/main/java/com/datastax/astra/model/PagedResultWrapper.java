@@ -16,84 +16,86 @@ import com.datastax.oss.protocol.internal.util.Bytes;
  *
  * @author DataStax Developer Advocates team.
  */
-public class PagedResultWrapper < ENTITY > {
-	
-	/** Custom management of paging state. */
-	private Optional< String > pageState = Optional.empty();
-	
-	/** Custom management of paging state. */
-    private Integer pageSize = 1;
+public class PagedResultWrapper<ENTITY> {
 
-    /** Results map as entities. */
-    private List<ENTITY> data = new ArrayList<>();
-    
-    /**
-	 * Default Constructor.
-	 */
-	public PagedResultWrapper() {}
-	
-	/**
-     * Constructor from a RESULT.
-     * 
-     * @param rs
-     *      result set
-     * @param mapper
-     *      mapper
-     */
-    public PagedResultWrapper(PagingIterable<ENTITY> rs, int pageSize) {
-        if (null != rs) {
-            Iterator<ENTITY> iterResults = rs.iterator();
-            IntStream.range(0, rs.getAvailableWithoutFetching())
-                     .forEach(item -> data.add(iterResults.next()));
-            if (null != rs.getExecutionInfo().getPagingState()) {
-                ByteBuffer pagingState = rs.getExecutionInfo().getPagingState();
-                if (pagingState != null && pagingState.hasArray()) {
-                    pageState = Optional.ofNullable(Bytes.toHexString(pagingState));
-                }
-            }
-            this.pageSize = pageSize;
+  /**
+   * Custom management of paging state.
+   */
+  private Optional<String> pageState = Optional.empty();
+
+  /**
+   * Custom management of paging state.
+   */
+  private Integer pageSize = 1;
+
+  /**
+   * Results map as entities.
+   */
+  private final List<ENTITY> data = new ArrayList<>();
+
+  /**
+   * Default Constructor.
+   */
+  public PagedResultWrapper() {
+  }
+
+  /**
+   * Constructor from a RESULT.
+   *
+   * @param rs     result set
+   * @param mapper mapper
+   */
+  public PagedResultWrapper(PagingIterable<ENTITY> rs, int pageSize) {
+    if (null != rs) {
+      Iterator<ENTITY> iterResults = rs.iterator();
+      IntStream.range(0, rs.getAvailableWithoutFetching())
+          .forEach(item -> data.add(iterResults.next()));
+      if (null != rs.getExecutionInfo().getPagingState()) {
+        ByteBuffer pagingState = rs.getExecutionInfo().getPagingState();
+        if (pagingState != null && pagingState.hasArray()) {
+          pageState = Optional.ofNullable(Bytes.toHexString(pagingState));
         }
+      }
+      this.pageSize = pageSize;
     }
-    
-    public PagedResultWrapper(MappedAsyncPagingIterable<ENTITY> rs, int pageSize) {
-        if (null != rs) {
-           rs.currentPage().forEach(data::add);
-           ByteBuffer pagingState = rs.getExecutionInfo().getPagingState();
-           if (pagingState != null && pagingState.hasArray()) {
-               pageState = Optional.ofNullable(Bytes.toHexString(pagingState));
-           }
-           this.pageSize = pageSize;
-        }
-    }
+  }
 
-    /**
-     * Getter accessor for attribute 'pageState'.
-     *
-     * @return
-     *       current value of 'pageState'
-     */
-    public Optional<String> getPageState() {
-        return pageState;
+  public PagedResultWrapper(MappedAsyncPagingIterable<ENTITY> rs, int pageSize) {
+    if (null != rs) {
+      rs.currentPage().forEach(data::add);
+      ByteBuffer pagingState = rs.getExecutionInfo().getPagingState();
+      if (pagingState != null && pagingState.hasArray()) {
+        pageState = Optional.ofNullable(Bytes.toHexString(pagingState));
+      }
+      this.pageSize = pageSize;
     }
+  }
 
-    /**
-     * Getter accessor for attribute 'pageSize'.
-     *
-     * @return
-     *       current value of 'pageSize'
-     */
-    public Integer getPageSize() {
-        return pageSize;
-    }
+  /**
+   * Getter accessor for attribute 'pageState'.
+   *
+   * @return current value of 'pageState'
+   */
+  public Optional<String> getPageState() {
+    return pageState;
+  }
 
-    /**
-     * Getter accessor for attribute 'data'.
-     *
-     * @return
-     *       current value of 'data'
-     */
-    public List<ENTITY> getData() {
-        return data;
-    }
+  /**
+   * Getter accessor for attribute 'pageSize'.
+   *
+   * @return current value of 'pageSize'
+   */
+  public Integer getPageSize() {
+    return pageSize;
+  }
+
+  /**
+   * Getter accessor for attribute 'data'.
+   *
+   * @return current value of 'data'
+   */
+  public List<ENTITY> getData() {
+    return data;
+  }
 
 }
