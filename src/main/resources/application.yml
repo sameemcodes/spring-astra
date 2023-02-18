@@ -4,8 +4,15 @@
 spring:
   application:
     name: Getting Started with Astra
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   jackson:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
 server:
-  port: 8080
+  port: 8050
+
+
+
