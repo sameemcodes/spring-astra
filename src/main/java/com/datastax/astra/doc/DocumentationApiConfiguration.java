@@ -9,9 +9,9 @@ package com.datastax.astra.doc;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,11 +20,9 @@ package com.datastax.astra.doc;
  * #L%
  */
 
+import com.datastax.astra.GettingStartedWithAstra;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.datastax.astra.GettingStartedWithAstra;
-
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -42,28 +40,28 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class DocumentationApiConfiguration {
 
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-            .groupName("GettingStartedWithAstra")
-            .select()
-            .apis(RequestHandlerSelectors.basePackage("com.datastax.astra"))
-            .paths(PathSelectors.regex("/api.*"))
-            .build()
-            .apiInfo(apiInfo())
-            .useDefaultResponseMessages(false);
-    }
-    
-    /**
-     * Initialization of documentation
-     *
-     * @return static infos
-     */
-    private ApiInfo apiInfo() {
-        ApiInfoBuilder builder = new ApiInfoBuilder();
-        builder.title("Astra Getting Started Backend API");
-        builder.description("Start with Astra in Minute");
-        builder.version(GettingStartedWithAstra.class.getPackage().getImplementationVersion());
-        return builder.build();
-    }
+  @Bean
+  public Docket api() {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .groupName("GettingStartedWithAstra")
+        .select()
+        .apis(RequestHandlerSelectors.basePackage("com.datastax.astra"))
+        .paths(PathSelectors.regex("/api.*"))
+        .build()
+        .apiInfo(apiInfo())
+        .useDefaultResponseMessages(false);
+  }
+
+  /**
+   * Initialization of documentation
+   *
+   * @return static infos
+   */
+  private ApiInfo apiInfo() {
+    ApiInfoBuilder builder = new ApiInfoBuilder();
+    builder.title("Astra Getting Started Backend API");
+    builder.description("Start with Astra in Minute");
+    builder.version(GettingStartedWithAstra.class.getPackage().getImplementationVersion());
+    return builder.build();
+  }
 }
